@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASC Hub v3 — Astronomy Space Community</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+<!-- CANVAS STARS -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- AMBIENT ORBS (tepi layar, bukan tengah) -->
+<div class="orb" style="width:500px;height:500px;background:#00f5ff;top:-160px;left:-200px;animation-duration:17s;"></div>
+<div class="orb" style="width:400px;height:400px;background:#bf00ff;top:38%;right:-200px;animation-delay:4s;animation-duration:13s;"></div>
+<div class="orb" style="width:380px;height:380px;background:#00ff88;bottom:-160px;left:-120px;animation-delay:7s;animation-duration:15s;"></div>
+<div class="orb" style="width:320px;height:320px;background:#00f5ff;bottom:-120px;right:-120px;animation-delay:2s;animation-duration:11s;"></div>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen">
+  <div class="ld-logo"><img src="logo.png" alt="ASC Logo" onerror="this.src='data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+...'"></div>
+  <div class="ld-title">ASC HUB</div>
+  <div id="ld-text">Initializing...</div>
+  <div class="ld-bar-wrap">
+    <div class="ld-bar"><div class="ld-fill" id="ld-fill"></div></div>
+    <div id="ld-pct">0%</div>
+  </div>
+</div>
+
+<!-- WELCOME MODAL -->
+<div id="welcome-modal">
+  <div class="modal-card">
+    <div class="modal-logo"><img src="logo.png" alt="ASC"></div>
+    <div class="modal-sub">SELAMAT DATANG DI</div>
+    <div class="modal-title">ASC SELECTION HUB</div>
+    <div class="modal-org">ASTRONOMY SPACE COMMUNITY</div>
+    <div class="modal-desc">Portal resmi seleksi & edukasi astronomi.<br>Jelajahi luar angkasa bersama komunitas kami.</div>
+    <button class="btn-enter" onclick="enterWebsite()">⭐ ENTER WEBSITE ⭐</button>
+  </div>
+</div>
+
+<!-- WATERMARK -->
+<div class="watermark" onclick="window.open('https://www.tiktok.com/@cahy144hz','_blank')">@cahy144hz</div>
+
+<!-- TOAST -->
+<div class="asc-toast" id="asc-toast"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo" onclick="switchPage('home')" style="cursor:pointer;">
+    <img class="nav-logo-img" src="logo.png" alt="ASC">
+    <span class="nav-logo-text">ASC HUB</span>
+  </div>
+  <div id="nav-links" class="nav-links">
+    <button class="nav-btn primary active" data-page="home">🏠 HOME</button>
+    <button class="nav-btn secondary" data-page="selection">📋 SELECTION</button>
+    <button class="nav-btn secondary" data-page="education">🔭 EDUCATION</button>
+  </div>
+  <button class="nav-toggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+<!-- ════════ HOME PAGE ════════ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">⭐ ASTRONOMY SPACE COMMUNITY — OFFICIAL HUB</div>
+      <h1 class="hero-title">Jelajahi <span>Alam Semesta</span><br>Bersama ASC</h1>
+      <p class="hero-sub">Portal resmi seleksi anggota dan edukasi astronomi. Bergabunglah dengan komunitas pecinta luar angkasa Indonesia.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="switchPage('selection')">🚀 DAFTAR SEKARANG</button>
+        <button class="btn-outline" onclick="switchPage('education')">🔭 EXPLORE EDUCATION</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-num" id="cnt-members">0</div><div class="stat-label">ACTIVE MEMBERS</div></div>
+        <div class="stat-item"><div class="stat-num" id="cnt-stars">0</div><div class="stat-label">STARS OBSERVED</div></div>
+        <div class="stat-item"><div class="stat-num" id="cnt-articles">0</div><div class="stat-label">ARTICLES</div></div>
+        <div class="stat-item"><div class="stat-num" id="cnt-tools">0</div><div class="stat-label">EDU TOOLS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-div"></div>
+
+  <section class="section">
+    <div class="sec-hdr">
+      <span class="sec-tag">FITUR UNGGULAN</span>
+      <h2 class="sec-title">Semua yang Kamu <span>Butuhkan</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+      <div class="gc pre-reveal" style="cursor:pointer;" onclick="switchPage('selection')">
+        <div style="font-size:2rem;margin-bottom:14px;">📋</div>
+        <div style="font-family:var(--ff-t);font-size:0.9rem;color:#fff;margin-bottom:7px;">ASC Selection Form</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.6;">Form pendaftaran 8 langkah dengan validasi, upload foto, dan member card digital yang bisa didownload.</div>
+      </div>
+      <div class="gc pre-reveal" style="cursor:pointer;" onclick="switchPage('education')">
+        <div style="font-size:2rem;margin-bottom:14px;">🔭</div>
+        <div style="font-family:var(--ff-t);font-size:0.9rem;color:#fff;margin-bottom:7px;">NASA APOD</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.6;">Astronomy Picture of the Day langsung dari NASA API dengan gambar dan penjelasan ilmiah harian.</div>
+      </div>
+      <div class="gc pre-reveal" style="cursor:pointer;" onclick="switchPage('education')">
+        <div style="font-size:2rem;margin-bottom:14px;">🛸</div>
+        <div style="font-family:var(--ff-t);font-size:0.9rem;color:#fff;margin-bottom:7px;">ISS Live Tracker</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.6;">Pantau posisi International Space Station secara realtime: koordinat, ketinggian, dan kecepatan orbit.</div>
+      </div>
+      <div class="gc pre-reveal" style="cursor:pointer;" onclick="switchPage('education')">
+        <div style="font-size:2rem;margin-bottom:14px;">🤖</div>
+        <div style="font-family:var(--ff-t);font-size:0.9rem;color:#fff;margin-bottom:7px;">AI Space Chat</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.6;">Chatbot astronomi berbahasa Indonesia yang siap menjawab pertanyaanmu tentang bintang, planet, dan galaksi.</div>
+      </div>
+      <div class="gc pre-reveal" style="cursor:pointer;" onclick="switchPage('education')">
+        <div style="font-size:2rem;margin-bottom:14px;">🔢</div>
+        <div style="font-family:var(--ff-t);font-size:0.9rem;color:#fff;margin-bottom:7px;">Space Tools</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.6;">Kalkulator, konverter satuan astronomi (km/AU/ly/pc), konverter waktu kosmik, terminal, dan catatan.</div>
+      </div>
+      <div class="gc pre-reveal" style="cursor:pointer;" onclick="switchPage('education')">
+        <div style="font-size:2rem;margin-bottom:14px;">📚</div>
+        <div style="font-family:var(--ff-t);font-size:0.9rem;color:#fff;margin-bottom:7px;">Edukasi Lengkap</div>
+        <div style="font-size:0.8rem;color:var(--text-mid);line-height:1.6;">Planet Tata Surya, Space News, Artikel ilmiah, dan Timeline sejarah eksplorasi luar angkasa.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-div"></div>
+
+  <section class="section">
+    <div class="sec-hdr">
+      <span class="sec-tag">TENTANG KAMI</span>
+      <h2 class="sec-title">Apa itu <span>ASC</span>?</h2>
+    </div>
+    <div class="gc" style="max-width:760px;margin:0 auto;text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:18px;">🌌</div>
+      <p style="font-size:0.95rem;color:var(--text-mid);line-height:1.8;margin-bottom:18px;">
+        <strong style="color:#fff;">Astronomy Space Community (ASC)</strong> adalah komunitas online pecinta astronomi dan luar angkasa di Indonesia. Kami berbagi ilmu, konten edukasi, dan inspirasi untuk memperkenalkan keajaiban alam semesta kepada generasi muda.
+      </p>
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.7;margin-bottom:22px;">
+        Bergabunglah, belajar bersama, dan jadilah bagian dari komunitas yang peduli terhadap ilmu pengetahuan dan eksplorasi luar angkasa.
+      </p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="switchPage('selection')">🚀 JOIN ASC</button>
+        <button class="btn-outline" onclick="window.open('https://chat.whatsapp.com/CHPye9Ff3siFnczCYl6xuM','_blank')">💬 WhatsApp Group</button>
+      </div>
+    </div>
+  </section>
+
+  <footer style="text-align:center;padding:40px 20px;border-top:1px solid rgba(0,245,255,0.08);color:var(--text-dim);font-family:var(--ff-m);font-size:0.65rem;letter-spacing:2px;">
+    © 2025 ASC HUB v3 — ASTRONOMY SPACE COMMUNITY &nbsp;|&nbsp; MADE BY @cahy144hz
+  </footer>
+</div>
+
+<!-- ════════ SELECTION PAGE ════════ -->
+<div id="page-selection" class="page">
+  <section class="section">
+    <div class="sec-hdr">
+      <span class="sec-tag">PENDAFTARAN ANGGOTA</span>
+      <h2 class="sec-title">ASC <span>Selection</span> Form</h2>
+    </div>
+
+    <div class="form-wrap" id="form-container">
+      <!-- Progress Dots -->
+      <div class="prog-steps">
+        <div class="sdot active" id="sdot-1">1</div><div class="scon" id="scon-1"></div>
+        <div class="sdot" id="sdot-2">2</div><div class="scon" id="scon-2"></div>
+        <div class="sdot" id="sdot-3">3</div><div class="scon" id="scon-3"></div>
+        <div class="sdot" id="sdot-4">4</div><div class="scon" id="scon-4"></div>
+        <div class="sdot" id="sdot-5">5</div><div class="scon" id="scon-5"></div>
+        <div class="sdot" id="sdot-6">6</div><div class="scon" id="scon-6"></div>
+        <div class="sdot" id="sdot-7">7</div><div class="scon" id="scon-7"></div>
+        <div class="sdot" id="sdot-8">8</div>
+      </div>
+
+      <div class="gc">
+        <!-- STEP 1 -->
+        <div class="fstep active" id="fstep-1">
+          <div class="step-tag">LANGKAH 1 DARI 8</div>
+          <div class="step-title">Siapa namamu? 👋</div>
+          <div class="fg"><label class="fl">NAMA LENGKAP</label><input id="f-nama" class="fi" type="text" placeholder="Masukkan nama lengkap kamu"></div>
+          <div style="display:flex;justify-content:flex-end;margin-top:18px;"><button class="btn-nav" onclick="nextStep(1)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 2 -->
+        <div class="fstep" id="fstep-2">
+          <div class="step-tag">LANGKAH 2 DARI 8</div>
+          <div class="step-title">Username TikTok kamu 🎵</div>
+          <div class="fg"><label class="fl">USERNAME TIKTOK</label><input id="f-user" class="fi" type="text" placeholder="@username"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;"><button class="btn-nav-o" onclick="prevStep(2)">← KEMBALI</button><button class="btn-nav" onclick="nextStep(2)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 3 -->
+        <div class="fstep" id="fstep-3">
+          <div class="step-tag">LANGKAH 3 DARI 8</div>
+          <div class="step-title">Berapa umurmu? 🎂</div>
+          <div class="fg"><label class="fl">UMUR</label><input id="f-umur" class="fi" type="number" placeholder="Contoh: 17" min="10" max="99"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;"><button class="btn-nav-o" onclick="prevStep(3)">← KEMBALI</button><button class="btn-nav" onclick="nextStep(3)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 4 -->
+        <div class="fstep" id="fstep-4">
+          <div class="step-tag">LANGKAH 4 DARI 8</div>
+          <div class="step-title">Kamu dari mana? 📍</div>
+          <div class="fg"><label class="fl">KOTA / ASAL DAERAH</label><input id="f-kota" class="fi" type="text" placeholder="Contoh: Jakarta, Bandung, Surabaya..."></div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;"><button class="btn-nav-o" onclick="prevStep(4)">← KEMBALI</button><button class="btn-nav" onclick="nextStep(4)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 5 -->
+        <div class="fstep" id="fstep-5">
+          <div class="step-tag">LANGKAH 5 DARI 8</div>
+          <div class="step-title">Kenapa mau gabung ASC? 🌌</div>
+          <div class="fg"><label class="fl">ALASAN BERGABUNG (min. 20 karakter)</label><textarea id="f-alasan" class="fi" rows="4" placeholder="Ceritakan kenapa kamu mau bergabung dengan ASC..."></textarea></div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;"><button class="btn-nav-o" onclick="prevStep(5)">← KEMBALI</button><button class="btn-nav" onclick="nextStep(5)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 6 -->
+        <div class="fstep" id="fstep-6">
+          <div class="step-tag">LANGKAH 6 DARI 8</div>
+          <div class="step-title">Skill apa yang kamu miliki? 🔧</div>
+          <div class="skill-grid">
+            <div class="skill-item" data-skill="Editor" onclick="toggleSkill('Editor')"><div class="skill-icon">✂️</div>Editor</div>
+            <div class="skill-item" data-skill="Astronomy" onclick="toggleSkill('Astronomy')"><div class="skill-icon">🔭</div>Astronomy</div>
+            <div class="skill-item" data-skill="Programmer" onclick="toggleSkill('Programmer')"><div class="skill-icon">💻</div>Programmer</div>
+            <div class="skill-item" data-skill="Designer" onclick="toggleSkill('Designer')"><div class="skill-icon">🎨</div>Designer</div>
+            <div class="skill-item" data-skill="Content Creator" onclick="toggleSkill('Content Creator')"><div class="skill-icon">📱</div>Content Creator</div>
+            <div class="skill-item" data-skill="Researcher" onclick="toggleSkill('Researcher')"><div class="skill-icon">📊</div>Researcher</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;"><button class="btn-nav-o" onclick="prevStep(6)">← KEMBALI</button><button class="btn-nav" onclick="nextStep(6)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 7 -->
+        <div class="fstep" id="fstep-7">
+          <div class="step-tag">LANGKAH 7 DARI 8</div>
+          <div class="step-title">Upload foto profil 📸</div>
+          <div id="upload-zone" class="upload-zone" onclick="document.getElementById('photo-inp').click()">
+            <div class="upload-icon">📷</div>
+            <div class="upload-hint">Klik atau drag & drop foto di sini</div>
+            <div class="upload-sub">JPG / PNG / WEBP • Max 5MB</div>
+          </div>
+          <input type="file" id="photo-inp" accept="image/*" style="display:none" onchange="previewPhoto(event)">
+          <div id="photo-preview" style="display:none;justify-content:center;margin-top:10px;"><img id="prev-img" src="" alt="Preview" style="width:76px;height:76px;border-radius:50%;border:2px solid var(--cyan);object-fit:cover;"></div>
+          <div style="font-size:0.75rem;color:var(--text-dim);margin-top:9px;text-align:center;">Foto bersifat opsional</div>
+          <div style="display:flex;justify-content:space-between;margin-top:18px;"><button class="btn-nav-o" onclick="prevStep(7)">← KEMBALI</button><button class="btn-nav" onclick="nextStep(7)">LANJUT →</button></div>
+        </div>
+        <!-- STEP 8 REVIEW -->
+        <div class="fstep" id="fstep-8">
+          <div class="step-tag">LANGKAH 8 DARI 8 — REVIEW</div>
+          <div class="step-title">Cek kembali datamu ✅</div>
+          <div id="review-summary"></div>
+          <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-top:18px;">
+            <button class="btn-nav-o" onclick="prevStep(8)">← KEMBALI</button>
+            <button class="btn-nav" onclick="submitForm()" style="background:linear-gradient(135deg,#00ff88,#00f5ff);color:#000;">✓ SUBMIT PENDAFTARAN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEMBER CARD RESULT -->
+    <div id="member-card-result" style="display:none;padding-top:22px;">
+      <div class="member-card">
+        <div class="mc-hdr">⭐ ASC OFFICIAL MEMBER CARD ⭐</div>
+        <div class="mc-av" id="mc-avatar">?</div>
+        <div class="mc-name" id="mc-name">—</div>
+        <div class="mc-user" id="mc-user">@—</div>
+        <div class="mc-meta" id="mc-city"></div>
+        <div class="mc-meta" id="mc-age"></div>
+        <div class="mc-id" id="mc-id">ID: ASC-XXXXXXX</div>
+        <div id="mc-skills" style="margin-bottom:8px;"></div>
+        <div class="mc-status">✓ ACCEPTED BY ASC SYSTEM</div>
+        <div class="mc-actions">
+          <button class="btn-primary" style="font-size:0.7rem;padding:10px 20px;" onclick="downloadCard()">⬇ DOWNLOAD CARD</button>
+          <button class="btn-outline" style="font-size:0.7rem;padding:10px 20px;" onclick="window.open('https://chat.whatsapp.com/CHPye9Ff3siFnczCYl6xuM','_blank')">💬 JOIN COMMUNITY</button>
+          <button class="btn-outline" style="font-size:0.7rem;padding:10px 20px;" onclick="resetForm()">🔄 DAFTAR LAGI</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════ EDUCATION PAGE ════════ -->
+<div id="page-education" class="page">
+  <section class="section">
+    <div class="sec-hdr">
+      <span class="sec-tag">PUSAT EDUKASI ASTRONOMI</span>
+      <h2 class="sec-title">Education <span>Hub</span></h2>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+      <input class="search-input" id="edu-search" type="text" placeholder="🔍 Cari planet, artikel, atau berita...">
+      <button class="search-btn" onclick="doSearch()">CARI</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="edu-tabs">
+      <button class="edu-tab active" data-tab="apod">📷 NASA APOD</button>
+      <button class="edu-tab" data-tab="iss">🛸 ISS Tracker</button>
+      <button class="edu-tab" data-tab="news">📰 Space News</button>
+      <button class="edu-tab" data-tab="planets">🪐 Planets</button>
+      <button class="edu-tab" data-tab="ai">🤖 AI Chat</button>
+      <button class="edu-tab" data-tab="tools">🔧 Tools</button>
+      <button class="edu-tab" data-tab="articles">📚 Articles</button>
+      <button class="edu-tab" data-tab="timeline">⏳ Timeline</button>
+    </div>
+
+    <!-- APOD -->
+    <div class="edu-panel active" id="panel-apod">
+      <div class="gc"><div id="apod-content"><div class="apod-loading"><div class="spin-ring"></div><p>Loading APOD...</p></div></div></div>
+    </div>
+
+    <!-- ISS -->
+    <div class="edu-panel" id="panel-iss">
+      <div class="gc iss-box">
+        <div class="iss-icon">🛸</div>
+        <div class="iss-name">International Space Station</div>
+        <div class="iss-sub">Orbital Altitude ~408 km — Velocity ~7.66 km/s</div>
+        <div class="iss-live"><div class="iss-dot"></div>LIVE TRACKING</div>
+        <div class="iss-coords">
+          <div class="ci"><div class="cl">LATITUDE</div><div class="cv" id="iss-lat">—</div></div>
+          <div class="ci"><div class="cl">LONGITUDE</div><div class="cv" id="iss-lng">—</div></div>
+          <div class="ci"><div class="cl">ALTITUDE</div><div class="cv" id="iss-alt">—</div></div>
+          <div class="ci"><div class="cl">VELOCITY</div><div class="cv" id="iss-vel">—</div></div>
+        </div>
+        <div class="iss-meta">🕐 Update: <span id="iss-time">—</span></div>
+        <div style="margin-top:14px;font-size:0.76rem;color:var(--text-dim);">ISS mengorbit Bumi setiap ~92 menit. Diluncurkan 20 Nov 1998. Dihuni astronaut dari berbagai negara.</div>
+      </div>
+    </div>
+
+    <!-- NEWS -->
+    <div class="edu-panel" id="panel-news">
+      <div class="news-grid" id="news-grid"></div>
+    </div>
+
+    <!-- PLANETS -->
+    <div class="edu-panel" id="panel-planets">
+      <div class="planet-grid" id="planet-grid"></div>
+      <div class="gc" id="planet-popup" style="display:none;"></div>
+    </div>
+
+    <!-- AI CHAT -->
+    <div class="edu-panel" id="panel-ai">
+      <div class="ai-chat">
+        <div class="ai-hdr">
+          <div class="ai-av-big">🤖</div>
+          <div>
+            <div class="ai-hdr-title">AstroBot ASC</div>
+            <div class="ai-status"><div class="iss-dot"></div>Online — Siap menjawab pertanyaan astronomi</div>
+          </div>
+        </div>
+        <div class="ai-msgs" id="ai-msgs">
+          <div class="ai-msg">
+            <div class="ai-av bot">🤖</div>
+            <div class="ai-bubble bot">Halo! Aku AstroBot ASC 🚀 Tanyakan apa saja tentang astronomi — planet, bintang, galaksi, black hole, ISS, atau apapun tentang luar angkasa!</div>
+          </div>
+        </div>
+        <div class="ai-inp-area">
+          <input class="ai-inp" id="ai-inp" type="text" placeholder="Tanya tentang bintang, planet, galaksi...">
+          <button class="ai-send" onclick="sendAIMsg()">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOOLS -->
+    <div class="edu-panel" id="panel-tools">
+      <div class="tools-grid">
+
+        <!-- Calculator -->
+        <div class="tool-card">
+          <div class="tool-title">🔢 KALKULATOR</div>
+          <div class="calc-display" id="calc-disp">0</div>
+          <div class="calc-grid">
+            <button class="calc-btn op" onclick="calcClr()">AC</button>
+            <button class="calc-btn op" onclick="calcSign()">+/-</button>
+            <button class="calc-btn op" onclick="calcPct()">%</button>
+            <button class="calc-btn op" onclick="calcOp('÷')">÷</button>
+            <button class="calc-btn" onclick="calcNum('7')">7</button>
+            <button class="calc-btn" onclick="calcNum('8')">8</button>
+            <button class="calc-btn" onclick="calcNum('9')">9</button>
+            <button class="calc-btn op" onclick="calcOp('×')">×</button>
+            <button class="calc-btn" onclick="calcNum('4')">4</button>
+            <button class="calc-btn" onclick="calcNum('5')">5</button>
+            <button class="calc-btn" onclick="calcNum('6')">6</button>
+            <button class="calc-btn op" onclick="calcOp('-')">−</button>
+            <button class="calc-btn" onclick="calcNum('1')">1</button>
+            <button class="calc-btn" onclick="calcNum('2')">2</button>
+            <button class="calc-btn" onclick="calcNum('3')">3</button>
+            <button class="calc-btn op" onclick="calcOp('+')">+</button>
+            <button class="calc-btn" onclick="calcNum('0')" style="grid-column:span 2;">0</button>
+            <button class="calc-btn" onclick="calcDot()">.</button>
+            <button class="calc-btn eq" onclick="calcEq()">=</button>
+          </div>
+        </div>
+
+        <!-- Random Facts -->
+        <div class="tool-card">
+          <div class="tool-title">💡 FAKTA LUAR ANGKASA</div>
+          <div class="fact-txt" id="fact-txt">Klik tombol di bawah untuk fakta acak tentang luar angkasa...</div>
+          <button class="btn-primary" onclick="randomFact()" style="width:100%;padding:10px;font-size:0.72rem;">🎲 FAKTA BARU</button>
+        </div>
+
+        <!-- Unit Converter -->
+        <div class="tool-card">
+          <div class="tool-title">📏 KONVERTER SATUAN ASTRONOMI</div>
+          <div class="fg"><label class="fl">NILAI</label><input id="conv-in" class="fi" type="number" placeholder="Masukkan nilai..."></div>
+          <div class="unit-row">
+            <div class="fg" style="margin:0;"><label class="fl">DARI</label>
+              <select id="conv-fr" class="fi">
+                <option value="km">Kilometer (km)</option>
+                <option value="mi">Miles (mi)</option>
+                <option value="au">Astronomical Unit (AU)</option>
+                <option value="ly">Light Year (ly)</option>
+                <option value="pc">Parsec (pc)</option>
+              </select>
+            </div>
+            <button class="swap-btn" onclick="swapUnits()">⇄</button>
+            <div class="fg" style="margin:0;"><label class="fl">KE</label>
+              <select id="conv-to" class="fi">
+                <option value="au">Astronomical Unit (AU)</option>
+                <option value="ly">Light Year (ly)</option>
+                <option value="km">Kilometer (km)</option>
+                <option value="mi">Miles (mi)</option>
+                <option value="pc">Parsec (pc)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="doConvert()" style="width:100%;padding:10px;font-size:0.72rem;margin-top:9px;">⚡ KONVERSI</button>
+          <div id="conv-result" style="margin-top:10px;"></div>
+        </div>
+
+        <!-- Time Converter -->
+        <div class="tool-card">
+          <div class="tool-title">⏳ KONVERTER WAKTU KOSMIK</div>
+          <div class="fg"><label class="fl">NILAI</label><input id="time-in" class="fi" type="number" placeholder="Masukkan nilai waktu..."></div>
+          <div class="fg"><label class="fl">SATUAN</label>
+            <select id="time-fr" class="fi">
+              <option value="detik">Detik</option>
+              <option value="menit">Menit</option>
+              <option value="jam">Jam</option>
+              <option value="hari">Hari</option>
+              <option value="tahun">Tahun</option>
+            </select>
+          </div>
+          <button class="btn-primary" onclick="doTime()" style="width:100%;padding:10px;font-size:0.72rem;">⚡ KONVERSI</button>
+          <div id="time-result" style="margin-top:10px;"></div>
+        </div>
+
+        <!-- Terminal -->
+        <div class="tool-card">
+          <div class="tool-title">💻 MINI TERMINAL</div>
+          <div class="terminal" id="terminal">
+            <div style="color:var(--cyan);">ASC Terminal v3.0.0 — type "help" for commands</div>
+          </div>
+          <div class="term-row" id="term-wrap">
+            <span class="term-prompt">ASC:~$</span>
+            <input class="term-in" id="term-in" type="text" placeholder="help" autocomplete="off">
+            <button class="search-btn" onclick="runCmd()" style="padding:6px 12px;font-size:0.8rem;">▶</button>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="tool-card">
+          <div class="tool-title">📝 CATATAN ASTRONOMI</div>
+          <textarea class="notes-area" id="notes-area" placeholder="Tulis catatan pengamatanmu di sini...&#10;&#10;Catatan tersimpan otomatis di browser."></textarea>
+          <div class="notes-ft">
+            <span id="notes-cnt">0 karakter</span>
+            <button onclick="clearNotes()" style="background:transparent;border:1px solid rgba(255,80,80,0.3);color:rgba(255,80,80,0.7);padding:3px 10px;border-radius:5px;font-size:0.68rem;font-family:var(--ff-m);">🗑 HAPUS</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ARTICLES -->
+    <div class="edu-panel" id="panel-articles">
+      <div class="art-grid" id="art-grid"></div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="edu-panel" id="panel-timeline">
+      <div class="gc">
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
